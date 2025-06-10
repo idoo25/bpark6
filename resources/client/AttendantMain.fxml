@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controllers.AttendantController"
+            prefHeight="700.0" prefWidth="1000.0">
+   <!-- Top Bar -->
+   <top>
+      <VBox spacing="10" style="-fx-background-color: #2C3E50;">
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         
+         <HBox alignment="CENTER_LEFT" spacing="20">
+            <Label text="BPark - Parking Attendant Portal" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <Label fx:id="lblParkingStatus" text="Active Sessions: --" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            
+            <Button text="Refresh" onAction="#loadActiveParkings" />
+            <Button text="Logout" styleClass="logout-button" />
+         </HBox>
+      </VBox>
+   </top>
+   
+   <!-- Main Content -->
+   <center>
+      <TabPane tabClosingPolicy="UNAVAILABLE">
+         
+         <!-- Tab 1: Register New Subscriber -->
+         <Tab text="Register New Subscriber">
+            <ScrollPane fitToWidth="true">
+               <VBox spacing="20" style="-fx-background-color: #ECF0F1;">
+                  <padding>
+                     <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                  </padding>
+                  
+                  <Label text="New Subscriber Registration" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+                  
+                  <GridPane hgap="15" vgap="15" maxWidth="600">
+                     <columnConstraints>
+                        <ColumnConstraints minWidth="120" prefWidth="120" />
+                        <ColumnConstraints minWidth="250" prefWidth="300" />
+                     </columnConstraints>
+                     
+                     <!-- Registration Form Fields -->
+                     <Label text="Full Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                     <TextField fx:id="txtName" promptText="Enter subscriber's full name" 
+                                GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                     
+                     <Label text="Phone Number:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                     <TextField fx:id="txtPhone" promptText="05X-XXXXXXX" 
+                                GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                     
+                     <Label text="Email:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                     <TextField fx:id="txtEmail" promptText="email@example.com" 
+                                GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                     
+                     <Label text="Car Number:" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+                     <TextField fx:id="txtCarNumber" promptText="XX-XXX-XX" 
+                                GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                     
+                     <Label text="Username:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+                     <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                        <TextField fx:id="txtUsername" promptText="Choose username" HBox.hgrow="ALWAYS" />
+                        <Button text="Generate" onAction="#handleGenerateUsername" minWidth="80" />
+                     </HBox>
+                  </GridPane>
+                  
+                  <HBox spacing="10">
+                     <Button text="Register Subscriber" onAction="#handleRegisterSubscriber" 
+                             styleClass="primary-button" prefWidth="150" />
+                     <Button text="Clear Form" onAction="#clearRegistrationForm" prefWidth="100" />
+                  </HBox>
+                  
+                  <Label fx:id="lblRegistrationStatus" />
+                  
+               </VBox>
+            </ScrollPane>
+         </Tab>
+         
+         <!-- Tab 2: Active Parkings -->
+         <Tab text="Active Parkings">
+            <VBox spacing="10">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+               
+               <HBox spacing="10" alignment="CENTER_LEFT">
+                  <Label text="Current Active Parking Sessions" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                  <Region HBox.hgrow="ALWAYS" />
+                  <Button text="Refresh Now" onAction="#loadActiveParkings" />
+                  <Label text="(Auto-refresh every 30 seconds)" style="-fx-font-style: italic;" />
+               </HBox>
+               
+               <TableView fx:id="tableActiveParkings" VBox.vgrow="ALWAYS">
+                  <columns>
+                     <TableColumn fx:id="colParkingCode" text="Parking Code" prefWidth="100" />
+                     <TableColumn fx:id="colSubscriberName" text="Subscriber" prefWidth="150" />
+                     <TableColumn fx:id="colSpot" text="Spot" prefWidth="80" />
+                     <TableColumn fx:id="colEntryTime" text="Entry Time" prefWidth="120" />
+                     <TableColumn fx:id="colExpectedExit" text="Expected Exit" prefWidth="120" />
+                     <TableColumn fx:id="colType" text="Type" prefWidth="100" />
+                  </columns>
+               </TableView>
+               
+               <HBox spacing="10">
+                  <Button text="View Details" onAction="#handleViewSubscriberDetails" />
+                  <Button text="Manual Entry" onAction="#handleManualEntry" />
+               </HBox>
+               
+            </VBox>
+         </Tab>
+         
+         <!-- Tab 3: Quick Assist -->
+         <Tab text="Quick Assist">
+            <VBox spacing="20" style="-fx-background-color: #ECF0F1;">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+               
+               <Label text="Quick Assistance Tools" style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+               
+               <!-- Assist with Parking Operations -->
+               <TitledPane text="Assist with Parking Operations" expanded="true">
+                  <VBox spacing="15">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     
+                     <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Code/Username:" minWidth="100" />
+                        <TextField fx:id="txtAssistCode" promptText="Enter parking code or username" prefWidth="200" />
+                     </HBox>
+                     
+                     <HBox spacing="10" alignment="CENTER_LEFT">
+                        <Label text="Action:" minWidth="100" />
+                        <ComboBox fx:id="comboAssistAction" prefWidth="200" />
+                        <Button text="Execute" onAction="#handleAssistAction" />
+                     </HBox>
+                  </VBox>
+               </TitledPane>
+               
+               <!-- Quick Actions -->
+               <TitledPane text="Quick Actions" expanded="false">
+                  <GridPane hgap="10" vgap="10">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     
+                     <Button text="Help Customer Enter" onAction="#handleManualEntry" 
+                             prefWidth="150" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                     <Button text="Lost Code Recovery" prefWidth="150" 
+                             GridPane.columnIndex="1" GridPane.rowIndex="0" />
+                     <Button text="Extend Parking" prefWidth="150" 
+                             GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                     <Button text="Emergency Exit" prefWidth="150" 
+                             GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  </GridPane>
+               </TitledPane>
+               
+               <!-- System Status -->
+               <TitledPane text="System Status" expanded="false">
+                  <VBox spacing="10">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     
+                     <Label text="Parking Lot Status:" style="-fx-font-weight: bold;" />
+                     <ProgressBar fx:id="progressOccupancy" prefWidth="300" progress="0.0" />
+                     <Label fx:id="lblOccupancyDetails" text="0/100 spots occupied (0%)" />
+                  </VBox>
+               </TitledPane>
+               
+            </VBox>
+         </Tab>
+         
+      </TabPane>
+   </center>
+   
+   <!-- Status Bar -->
+   <bottom>
+      <HBox spacing="20" style="-fx-background-color: #BDC3C7;">
+         <padding>
+            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+         </padding>
+         
+         <Label text="Status: Connected" />
+         <Separator orientation="VERTICAL" />
+         <Label fx:id="lblAttendantInfo" text="Attendant: --" />
+         <Region HBox.hgrow="ALWAYS" />
+         <Label text="BPark Attendant Portal v1.0" />
+      </HBox>
+   </bottom>
+   
+</BorderPane>

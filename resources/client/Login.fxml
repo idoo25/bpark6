@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.image.ImageView?>
+
+<VBox alignment="CENTER" spacing="20" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="controllers.LoginController"
+      style="-fx-background-color: linear-gradient(to bottom, #2C3E50, #34495E);"
+      prefHeight="500.0" prefWidth="400.0">
+   
+   <padding>
+      <Insets bottom="40.0" left="40.0" right="40.0" top="40.0" />
+   </padding>
+   
+   <!-- Logo/Title Section -->
+   <VBox alignment="CENTER" spacing="10">
+      <Label text="BPark" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="48.0" />
+         </font>
+      </Label>
+      
+      <Label text="Automatic Parking Management System" textFill="#BDC3C7">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </VBox>
+   
+   <!-- Login Form -->
+   <VBox spacing="15" maxWidth="300" style="-fx-background-color: rgba(255, 255, 255, 0.1); -fx-background-radius: 10;">
+      <padding>
+         <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+      </padding>
+      
+      <Label text="Login to Your Account" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      
+      <Separator />
+      
+      <!-- Username Field -->
+      <VBox spacing="5">
+         <Label text="Username" textFill="#ECF0F1">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Label>
+         <TextField fx:id="txtUsername" promptText="Enter your username" 
+                    style="-fx-background-radius: 5; -fx-border-radius: 5;" />
+      </VBox>
+      
+      <!-- Password Field (if needed) -->
+      <VBox spacing="5">
+         <Label text="Password (Optional)" textFill="#ECF0F1">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Label>
+         <PasswordField fx:id="txtPassword" promptText="Enter password" 
+                        style="-fx-background-radius: 5; -fx-border-radius: 5;" />
+      </VBox>
+      
+      <!-- Server Connection -->
+      <VBox spacing="5">
+         <Label text="Server IP" textFill="#ECF0F1">
+            <font>
+               <Font size="12.0" />
+            </font>
+         </Label>
+         <TextField fx:id="txtServerIP" text="localhost" 
+                    style="-fx-background-radius: 5; -fx-border-radius: 5;" />
+      </VBox>
+      
+      <!-- Login Button -->
+      <Button fx:id="btnLogin" text="Login" onAction="#handleLogin" 
+              prefWidth="240" prefHeight="40"
+              style="-fx-background-color: #27AE60; -fx-text-fill: white; -fx-background-radius: 5; -fx-font-size: 16px; -fx-font-weight: bold;" />
+      
+      <!-- Status Label -->
+      <Label fx:id="lblStatus" textFill="#E74C3C" wrapText="true" alignment="CENTER" />
+      
+   </VBox>
+   
+   <!-- Footer -->
+   <VBox alignment="CENTER" spacing="5">
+      <Label text="Need help? Contact support@bpark.com" textFill="#95A5A6">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
+      <Label text="© 2025 BPark - All rights reserved" textFill="#7F8C8D">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </VBox>
+   
+</VBox>

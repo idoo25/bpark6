@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="controllers.SubscriberController"
+            prefHeight="600.0" prefWidth="800.0">
+   
+   <!-- Top Bar -->
+   <top>
+      <VBox spacing="10" style="-fx-background-color: #2C3E50;">
+         <padding>
+            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
+         </padding>
+         
+         <HBox alignment="CENTER_LEFT" spacing="20">
+            <Label text="BPark - Subscriber Portal" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            
+            <Region HBox.hgrow="ALWAYS" />
+            
+            <Label fx:id="lblAvailableSpots" text="Available Spots: --" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            
+            <Button fx:id="btnCheckAvailability" text="Refresh" onAction="#checkParkingAvailability" />
+            <Button fx:id="btnLogout" text="Logout" onAction="#handleLogout" styleClass="logout-button" />
+         </HBox>
+      </VBox>
+   </top>
+   
+   <!-- Left Menu -->
+   <left>
+      <VBox spacing="10" prefWidth="200" style="-fx-background-color: #34495E;">
+         <padding>
+            <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+         </padding>
+         
+         <Label text="Quick Actions" textFill="WHITE">
+            <font>
+               <Font size="16.0" />
+            </font>
+         </Label>
+         
+         <Separator />
+         
+         <Button fx:id="btnEnterParking" text="Enter Parking Now" 
+                 onAction="#handleImmediateParking" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button text="Exit Parking" 
+                 onAction="#showExitParkingView" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button text="Make Reservation" 
+                 onAction="#showReservationView" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button text="Activate Reservation" 
+                 onAction="#handleActivateReservation" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button text="Cancel Reservation" 
+                 onAction="#handleCancelReservation" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Separator />
+         
+         <Button fx:id="btnViewHistory" text="Parking History" 
+                 onAction="#handleViewHistory" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button fx:id="btnLostCode" text="Lost Parking Code" 
+                 onAction="#handleLostCode" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button text="Extend Parking" 
+                 onAction="#handleExtendParking" 
+                 prefWidth="180" styleClass="menu-button" />
+         
+         <Button fx:id="btnUpdateProfile" text="Update Profile" 
+                 onAction="#showProfileView" 
+                 prefWidth="180" styleClass="menu-button" />
+      </VBox>
+   </left>
+   
+   <!-- Main Content Area -->
+   <center>
+      <ScrollPane fitToWidth="true" fitToHeight="true">
+         <VBox fx:id="mainContent" spacing="20" style="-fx-background-color: #ECF0F1;">
+            <padding>
+               <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            </padding>
+            
+            <!-- Welcome Section -->
+            <VBox spacing="10">
+               <Label text="Welcome to BPark">
+                  <font>
+                     <Font size="20.0" />
+                  </font>
+               </Label>
+               <Label text="Select an action from the menu or use the quick actions below." />
+            </VBox>
+            
+            <!-- Quick Entry Card -->
+            <TitledPane text="Quick Parking Entry" expanded="true">
+               <VBox spacing="10">
+                  <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </padding>
+                  
+                  <Label text="Click to enter parking immediately with your subscriber code:" />
+                  <Button text="Enter Parking Now" onAction="#handleImmediateParking" 
+                          prefWidth="200" styleClass="primary-button" />
+                  <Label text="Note: Default parking duration is 4 hours" styleClass="info-label" />
+               </VBox>
+            </TitledPane>
+            
+            <!-- Exit Parking Card -->
+            <TitledPane text="Exit Parking" expanded="false">
+               <VBox spacing="10">
+                  <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </padding>
+                  
+                  <HBox spacing="10" alignment="CENTER_LEFT">
+                     <Label text="Parking Code:" />
+                     <TextField fx:id="txtParkingCode" promptText="Enter 6-digit code" prefWidth="150" />
+                     <Button text="Exit" onAction="#handleExitParking" />
+                  </HBox>
+               </VBox>
+            </TitledPane>
+            
+            <!-- Reservation Card -->
+            <TitledPane text="Make Reservation" expanded="false">
+               <VBox spacing="10">
+                  <padding>
+                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                  </padding>
+                  
+                  <Label fx:id="lblReservationStatus" text="Select date and time for reservation:" />
+                  
+                  <HBox spacing="20">
+                     <VBox spacing="5">
+                        <Label text="Date:" />
+                        <DatePicker fx:id="datePickerReservation" />
+                     </VBox>
+                     
+                     <VBox spacing="5">
+                        <Label text="Time:" />
+                        <ComboBox fx:id="comboTimeSlot" prefWidth="150" promptText="Select time" />
+                     </VBox>
+                  </HBox>
+                  
+                  <Button text="Make Reservation" onAction="#handleMakeReservation" 
+                          styleClass="primary-button" />
+                  
+                  <Label text="* Reservations must be 24 hours to 7 days in advance" 
+                         styleClass="info-label" />
+                  <Label text="* Reservation requires at least 40% available spots" 
+                         styleClass="info-label" />
+               </VBox>
+            </TitledPane>
+            
+            <!-- Parking History Table -->
+            <TitledPane text="Recent Parking History" expanded="false">
+               <VBox spacing="10">
+                  <TableView fx:id="tableParkingHistory" prefHeight="200">
+                     <columns>
+                        <TableColumn fx:id="colDate" text="Date" prefWidth="100" />
+                        <TableColumn fx:id="colEntry" text="Entry Time" prefWidth="100" />
+                        <TableColumn fx:id="colExit" text="Exit Time" prefWidth="100" />
+                        <TableColumn fx:id="colSpot" text="Spot" prefWidth="80" />
+                        <TableColumn fx:id="colStatus" text="Status" prefWidth="100" />
+                     </columns>
+                  </TableView>
+                  
+                  <Button text="Load Full History" onAction="#handleViewHistory" />
+               </VBox>
+            </TitledPane>
+            
+         </VBox>
+      </ScrollPane>
+   </center>
+   
+   <!-- Status Bar -->
+   <bottom>
+      <HBox spacing="20" style="-fx-background-color: #BDC3C7;">
+         <padding>
+            <Insets bottom="5.0" left="20.0" right="20.0" top="5.0" />
+         </padding>
+         
+         <Label text="Status: Connected" />
+         <Separator orientation="VERTICAL" />
+         <Label fx:id="lblUserInfo" text="User: --" />
+         <Region HBox.hgrow="ALWAYS" />
+         <Label text="BPark v1.0" />
+      </HBox>
+   </bottom>
+   
+</BorderPane>

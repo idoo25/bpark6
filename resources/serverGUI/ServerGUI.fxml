@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="serverGUI.ServerPortFrame" styleClass="root" stylesheets="@ServerGUI.css" spacing="20" alignment="CENTER">
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+   
+   <!-- Main Title -->
+   <Label text="BPark Server Management" styleClass="main-title" />
+   
+
+   
+   <!-- Server Status Panel -->
+   <VBox styleClass="server-status-panel" spacing="15" alignment="CENTER">
+      <padding>
+         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+      </padding>
+      
+      <Label text="Server Status" styleClass="section-header" />
+      
+      <GridPane hgap="15" vgap="10" alignment="CENTER">
+         <columnConstraints>
+            <ColumnConstraints minWidth="120" prefWidth="120" />
+            <ColumnConstraints minWidth="200" prefWidth="200" />
+         </columnConstraints>
+         
+         <Label text="Server IP:" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+         <TextField fx:id="serverip" editable="false" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+         
+         <Label text="Status Message:" styleClass="field-label" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+         <TextField fx:id="textMessage" editable="false" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      </GridPane>
+   </VBox>
+   
+   <!-- Action Button -->
+   <HBox spacing="20" alignment="CENTER">
+      <Button fx:id="btnExit" text="Exit Server" onAction="#getExitBtn" styleClass="exit-button" />
+   </HBox>
+   
+   <!-- Client Connections Panel -->
+   <VBox spacing="10" alignment="CENTER">
+      <Label text="Client Connections" styleClass="section-header" />
+      <TextArea fx:id="txtClientConnection" prefHeight="200.0" prefWidth="600.0" editable="false" styleClass="client-connections" wrapText="true" />
+   </VBox>
+   
+   <!-- Footer -->
+   <Label text="BPark Automatic Parking Management System v1.0" styleClass="footer-label" />
+</VBox>
