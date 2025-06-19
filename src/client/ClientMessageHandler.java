@@ -64,19 +64,6 @@ public class ClientMessageHandler {
                 handleCancellationResponse(message);
                 break;
                 
-            case ENTER_PARKING_RESPONSE:
-                String enterResult = (String) message.getContent();
-                showAlert("Parking Entry", enterResult);
-                break;    
-            
-            case EXIT_PARKING_RESPONSE:
-                handleExitParkingResponse(message);
-                break;
-                
-            case EXTEND_PARKING_RESPONSE:
-                handleExtendParkingResponse(message);
-                break;
-                
             default:
                 System.out.println("Unknown message type: " + message.getType());
         }
@@ -156,25 +143,6 @@ public class ClientMessageHandler {
             // Clear registration form
         } else {
             showAlert("Registration Failed", response);
-        }
-    }
-    
-    private static void handleExitParkingResponse(Message message) {
-        String response = (String) message.getContent();
-        if (response.startsWith("Exit successful")) {
-            showAlert("Parking Exit", response);
-        } else {
-            showAlert("Exit Failed", response);
-        }
-    }
-    
-    
-    private static void handleExtendParkingResponse(Message message) {
-        String response = (String) message.getContent();
-        if (response.contains("extended")) {
-            showAlert("Parking Extended", response);
-        } else {
-            showAlert("Extension Failed", response);
         }
     }
     
