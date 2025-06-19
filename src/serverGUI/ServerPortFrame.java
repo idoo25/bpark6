@@ -131,30 +131,32 @@ public class ServerPortFrame extends Application {
      * UPDATED: Now includes auto-cancellation service status
      */
     private void showSystemInfo() {
-        Platform.runLater(() -> {
-            String systemInfo = "=== ParkB Server Auto-Started ===\n";
-            systemInfo += "Database: bpark (Auto-configured)\n";
-            systemInfo += "MySQL: localhost:3306 (Connected)\n";
-            systemInfo += "Username: root\n";
-            systemInfo += "Server IP: " + ParkingServer.serverIp + "\n";
-            systemInfo += "Port: " + ParkingServer.DEFAULT_PORT + "\n";
-            systemInfo += "Parking Spots: 100 (Auto-initialized)\n";
-            
-            // Add auto-cancellation status
-            systemInfo += "Auto-Cancellation: ACTIVE (15-min rule)\n";
-            systemInfo += "Reservation Flow: preorder → active → finished\n";
-            systemInfo += "Late Policy: Auto-cancel after 15 minutes\n";
-            
-            systemInfo += "Auto-start: SUCCESS\n";
-            systemInfo += "Status: Ready to accept client connections\n";
-            systemInfo += "================================\n\n";
-            systemInfo += "Monitor console for auto-cancellation messages:\n";
-            systemInfo += "✅ AUTO-CANCELLED: Reservation X for UserY\n\n";
-            systemInfo += "Waiting for clients to connect...\n";
-            
-            if (controller != null && controller.txtClientConnection != null) {
-                controller.txtClientConnection.setText(systemInfo);
-            }
-        });
-    }
+    Platform.runLater(() -> {
+        String systemInfo = "=== ParkB Server Auto-Started ===\n";
+        systemInfo += "Database: bpark (Auto-configured)\n";
+        systemInfo += "MySQL: localhost:3306 (Connected)\n";
+        systemInfo += "Username: root\n";
+        systemInfo += "Server IP: " + ParkingServer.serverIp + "\n";
+        systemInfo += "Port: " + ParkingServer.DEFAULT_PORT + "\n";
+        systemInfo += "Parking Spots: 100 (Auto-initialized)\n";
+        
+        // UPDATE THESE LINES - show both services
+        systemInfo += "Auto-Cancellation: ACTIVE (15-min rule for preorders)\n";
+        systemInfo += "Late Pickup Monitor: ACTIVE (1-min interval)\n";  // ADD THIS LINE
+        systemInfo += "Reservation Flow: preorder → active → finished\n";
+        systemInfo += "Late Policy: Auto-cancel after 15 minutes\n";
+        
+        systemInfo += "Auto-start: SUCCESS\n";
+        systemInfo += "Status: Ready to accept client connections\n";
+        systemInfo += "================================\n\n";
+        systemInfo += "Monitor console for notifications:\n";
+        systemInfo += "AUTO-CANCELLED: Reservation X for UserY\n";
+        systemInfo += "LATE PICKUP DETECTED: Parking X for UserY\n";  // ADD THIS LINE
+        systemInfo += "\nWaiting for clients to connect...\n";
+        
+        if (controller != null && controller.txtClientConnection != null) {
+            controller.txtClientConnection.setText(systemInfo);
+        }
+    });
+}
 }
